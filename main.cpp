@@ -1,10 +1,4 @@
-#include <doctest.h>
-#include <.clang-format>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-
-/* 
+/*
 x == densità di prede
 y == densità predatori
 A == tasso di crescita prede
@@ -17,22 +11,51 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 
 */
 
+#include <doctest.h>
+
+#include <.clang-format>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
-const double A = 0.05;
-const double B = 0.002;
-const double C = 0.06;
-const double D = 0.004;
-
-const double step = 0.1;
-
-const int numberOfLoops = 4000;
-
-double dxdt(double x, double y) {
-    return x*(A - B*y);
+namespace pf {
+int main() {
+  int A;
+  cout << "Enter a value for A, prey growth rate: ";
+  cin >> A;
+  if (A <= 0) {
+    cout << "A can't be a non-positive number" << endl;
+  } else {
+    int B;
+    cout << "Excelent, now enter a value for B, prey mortality rate: ";
+    cin >> B;
+    if (B <= 0) {
+      cout << "B can't be a non-positive number" << endl;
+    } else {
+      int C;
+      cout << "Perfect, now enter a value for C, predator growth rate: ";
+      cin >> C;
+      if (C <= 0) {
+        cout << "C can't be a non-positive number" << endl;
+      } else {
+        int D;
+        cout << "OK, now enter a value for D, predator mortality rate: ";
+        cin >> D;
+        if (D <= 0) {
+          cout << "D can't be a non-positive number" << endl;
+        } else {
+          int x;
+          cout
+              << "Perfect, now enter a value for X0, the initial prey number: ";
+          cin >> x;
+          /* casi possibili --> se uno tra x o y <0; se sia x che y <0; se uno
+           * solo tra x o y =0; se sia x che y =0; se sia x che y >0
+           */
+        }
+      }
+    }
+  }
 }
-
-double dydt(double x, double y) {
-    return y*(C - D*x);
-}
-
+} 
