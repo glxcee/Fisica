@@ -24,7 +24,13 @@ endif()
 string(APPEND CMAKE_CXX_FLAGS_DEBUG " -fsanitize=address,undefined")
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined ")
 
-add_executable(project main.cpp)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
+
+add_executable(project main.cpp graphic.cpp)
+
+target_link_libraries(project PRIVATE sfml-graphics sfml-window sfml-system)
+
 
 # se il testing e' abilitato...
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione

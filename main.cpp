@@ -13,13 +13,16 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 
 
 #include <iostream>
-
+#include "graphic.hpp"
 
 using namespace std;
 
 int main() {
+
+  start_window();
+  
   int A;
-  cout << "Enter a value for A, prey growth rate: ";
+  cout << "\nEnter a value for A, prey growth rate: ";
   cin >> A;
   if (A <= 0) {
     cout << "A can't be a non-positive number" << endl;

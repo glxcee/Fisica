@@ -3,10 +3,7 @@
 **Input**:
 - (x0, y0)
 - A, B, C, D
-- delta t
-    - unità di misura di riferimento
-    - variabile a runtime
-    - nell'ordine di 0.001
+- Numero di passi totali (quante volte passa delta t *[che è nell'ordine di 0.001]*)
 
 **Calcolare a ogni step**: (xi, yi, Hi)
 
@@ -18,6 +15,8 @@ classe **Simulation**: *[GUARDA formule.png]*
 
 **Comandi**:
 - cmake -S . -B build -G"Ninja Multi-Config" 
-(crea la cartella build)
+(crea la cartella build, *rm -rf build* la elimina)
 - cmake --build build --config Debug
 (linka)
+- build/Debug/project
+(run)
