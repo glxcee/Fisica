@@ -11,16 +11,13 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 
 */
 
-#include <doctest.h>
+#include "doctest.h"
 
-#include <.clang-format>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <sstream>
+
 
 using namespace std;
-namespace pf {
+
 int main() {
   int A;
   cout << "Enter a value for A, prey growth rate: ";
@@ -57,5 +54,5 @@ int main() {
       }
     }
   }
+  return 0;
 }
-} 
