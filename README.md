@@ -14,3 +14,10 @@ classe **Simulation**: *[GUARDA formule.png]*
 - memoria di ogni valore (xi, yi, Hi) accessibili all'utente
 - stato rappresentato internamente in termini di (x^rel_i, y^rel_i)
 - metodo evolve(): fa progredire la simulazione di 1 step (delta t)
+
+
+**Comandi**:
+- cmake -S . -B build -G"Ninja Multi-Config" 
+(crea la cartella build)
+- cmake --build build --config Debug
+(linka)

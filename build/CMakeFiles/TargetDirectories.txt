@@ -27,7 +27,6 @@
 /home/rugs/desk/Fisica/build/CMakeFiles/ContinuousMemCheck.dir
 /home/rugs/desk/Fisica/build/CMakeFiles/ContinuousSubmit.dir
 /home/rugs/desk/Fisica/build/CMakeFiles/project.dir
-/home/rugs/desk/Fisica/build/CMakeFiles/project.t.dir
 /home/rugs/desk/Fisica/build/CMakeFiles/test.dir
 /home/rugs/desk/Fisica/build/CMakeFiles/edit_cache.dir
 /home/rugs/desk/Fisica/build/CMakeFiles/rebuild_cache.dir

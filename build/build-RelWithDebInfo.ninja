@@ -66,8 +66,6 @@ build NightlyUpdate: phony NightlyUpdate$:RelWithDebInfo
 
 build project: phony RelWithDebInfo/project
 
-build project.t: phony RelWithDebInfo/project.t
-
 
 #############################################
 # Folder: /home/rugs/desk/Fisica/build

@@ -1,12 +1,4 @@
 # ninja log v5
-0	1369	1747820262591616560	build-RelWithDebInfo.ninja	76da9d919980e124
-0	1369	1747820262591616560	build-Release.ninja	76da9d919980e124
-0	1369	1747820262591616560	build-Debug.ninja	76da9d919980e124
-0	1369	1747820262591616560	CMakeFiles/impl-Debug.ninja	76da9d919980e124
-0	1369	1747820262591616560	CMakeFiles/impl-Release.ninja	76da9d919980e124
-0	97	1747820061141661727	CMakeFiles/project.dir/Debug/simulation.cpp.o	b7f5154dd9f94197
-1	97	1747820061141661727	CMakeFiles/project.t.dir/Debug/simulation.test.cpp.o	57a4a28ba2e56a2d
-0	1369	1747820262591616560	build.ninja	76da9d919980e124
-0	1369	1747820262591616560	CMakeFiles/impl-RelWithDebInfo.ninja	76da9d919980e124
-0	97	1747820061141661727	CMakeFiles/project.t.dir/Debug/simulation.cpp.o	e023c5f059449777
-0	441	1747820259711617179	CMakeFiles/project.dir/Debug/main.cpp.o	c5e7a494ec402e81
+1	522	1747820722461511361	CMakeFiles/project.dir/Debug/main.cpp.o	c5e7a494ec402e81
+522	800	1747820722741511302	Debug/project	266f6fd01f41903a
+0	42	0	CMakeFiles/Debug/test.util	5bb99a05ef9fa33f

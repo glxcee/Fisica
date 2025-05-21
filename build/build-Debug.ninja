@@ -66,8 +66,6 @@ build NightlyUpdate: phony NightlyUpdate$:Debug
 
 build project: phony Debug/project
 
-build project.t: phony Debug/project.t
-
 
 #############################################
 # Folder: /home/rugs/desk/Fisica/build

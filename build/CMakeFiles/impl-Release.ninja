@@ -217,6 +217,8 @@ build CMakeFiles/project.dir/Release/main.cpp.o: CXX_COMPILER__project_Release /
   FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O3 -DNDEBUG -std=c++20
   OBJECT_DIR = CMakeFiles/project.dir/Release
   OBJECT_FILE_DIR = CMakeFiles/project.dir/Release
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/Release/
+  TARGET_PDB = Release/project.pdb
 
 
 # =============================================================================
@@ -231,47 +233,9 @@ build Release/project: CXX_EXECUTABLE_LINKER__project_Release CMakeFiles/project
   OBJECT_DIR = CMakeFiles/project.dir/Release
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/Release/
   TARGET_FILE = Release/project
-  TARGET_PDB = project.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Order-only phony target for project.t
-
-build cmake_object_order_depends_target_project.t_RELEASE: phony || CMakeFiles/project.t.dir
-
-build CMakeFiles/project.t.dir/Release/simulation.test.cpp.o: CXX_COMPILER__project.2et_Release /home/rugs/desk/Fisica/simulation.test.cpp || cmake_object_order_depends_target_project.t_RELEASE
-  DEFINES = -DCMAKE_INTDIR=\"Release\"
-  DEP_FILE = CMakeFiles/project.t.dir/Release/simulation.test.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O3 -DNDEBUG -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/Release
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/Release
-
-build CMakeFiles/project.t.dir/Release/simulation.cpp.o: CXX_COMPILER__project.2et_Release /home/rugs/desk/Fisica/simulation.cpp || cmake_object_order_depends_target_project.t_RELEASE
-  DEFINES = -DCMAKE_INTDIR=\"Release\"
-  DEP_FILE = CMakeFiles/project.t.dir/Release/simulation.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O3 -DNDEBUG -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/Release
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/Release
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Link the executable Release/project.t
-
-build Release/project.t: CXX_EXECUTABLE_LINKER__project.2et_Release CMakeFiles/project.t.dir/Release/simulation.test.cpp.o CMakeFiles/project.t.dir/Release/simulation.cpp.o
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O3 -DNDEBUG
-  OBJECT_DIR = CMakeFiles/project.t.dir/Release
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = Release/project.t
-  TARGET_PDB = project.t.dbg
+  TARGET_PDB = Release/project.pdb
 
 
 #############################################
@@ -497,15 +461,13 @@ build CMakeFiles/ContinuousSubmit-Release | ${cmake_ninja_workdir}CMakeFiles/Con
   COMMAND = cd /home/rugs/desk/Fisica/build && /usr/bin/ctest -C ${CONFIGURATION} -D ContinuousSubmit
   pool = console
 
-build project.t$:Release: phony Release/project.t
-
 build project$:Release: phony Release/project
 
 
 #############################################
 # Folder: /home/rugs/desk/Fisica/build
 
-build all$:Release: phony Release/project Release/project.t
+build all$:Release: phony Release/project
 
 
 #############################################

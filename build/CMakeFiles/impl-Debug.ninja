@@ -217,6 +217,8 @@ build CMakeFiles/project.dir/Debug/main.cpp.o: CXX_COMPILER__project_Debug /home
   FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -g -fsanitize=address,undefined -std=c++20
   OBJECT_DIR = CMakeFiles/project.dir/Debug
   OBJECT_FILE_DIR = CMakeFiles/project.dir/Debug
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/Debug/
+  TARGET_PDB = Debug/project.pdb
 
 
 # =============================================================================
@@ -232,48 +234,9 @@ build Debug/project: CXX_EXECUTABLE_LINKER__project_Debug CMakeFiles/project.dir
   OBJECT_DIR = CMakeFiles/project.dir/Debug
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/Debug/
   TARGET_FILE = Debug/project
-  TARGET_PDB = project.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Order-only phony target for project.t
-
-build cmake_object_order_depends_target_project.t_DEBUG: phony || CMakeFiles/project.t.dir
-
-build CMakeFiles/project.t.dir/Debug/simulation.test.cpp.o: CXX_COMPILER__project.2et_Debug /home/rugs/desk/Fisica/simulation.test.cpp || cmake_object_order_depends_target_project.t_DEBUG
-  DEFINES = -DCMAKE_INTDIR=\"Debug\"
-  DEP_FILE = CMakeFiles/project.t.dir/Debug/simulation.test.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -g -fsanitize=address,undefined -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/Debug
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/Debug
-
-build CMakeFiles/project.t.dir/Debug/simulation.cpp.o: CXX_COMPILER__project.2et_Debug /home/rugs/desk/Fisica/simulation.cpp || cmake_object_order_depends_target_project.t_DEBUG
-  DEFINES = -DCMAKE_INTDIR=\"Debug\"
-  DEP_FILE = CMakeFiles/project.t.dir/Debug/simulation.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -g -fsanitize=address,undefined -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/Debug
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/Debug
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Link the executable Debug/project.t
-
-build Debug/project.t: CXX_EXECUTABLE_LINKER__project.2et_Debug CMakeFiles/project.t.dir/Debug/simulation.test.cpp.o CMakeFiles/project.t.dir/Debug/simulation.cpp.o
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -g -fsanitize=address,undefined
-  LINK_FLAGS = -fsanitize=address,undefined
-  OBJECT_DIR = CMakeFiles/project.t.dir/Debug
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = Debug/project.t
-  TARGET_PDB = project.t.dbg
+  TARGET_PDB = Debug/project.pdb
 
 
 #############################################
@@ -499,15 +462,13 @@ build CMakeFiles/ContinuousSubmit-Debug | ${cmake_ninja_workdir}CMakeFiles/Conti
   COMMAND = cd /home/rugs/desk/Fisica/build && /usr/bin/ctest -C ${CONFIGURATION} -D ContinuousSubmit
   pool = console
 
-build project.t$:Debug: phony Debug/project.t
-
 build project$:Debug: phony Debug/project
 
 
 #############################################
 # Folder: /home/rugs/desk/Fisica/build
 
-build all$:Debug: phony Debug/project Debug/project.t
+build all$:Debug: phony Debug/project
 
 
 #############################################

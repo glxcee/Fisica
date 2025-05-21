@@ -217,6 +217,8 @@ build CMakeFiles/project.dir/RelWithDebInfo/main.cpp.o: CXX_COMPILER__project_Re
   FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O2 -g -DNDEBUG -std=c++20
   OBJECT_DIR = CMakeFiles/project.dir/RelWithDebInfo
   OBJECT_FILE_DIR = CMakeFiles/project.dir/RelWithDebInfo
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/RelWithDebInfo/
+  TARGET_PDB = RelWithDebInfo/project.pdb
 
 
 # =============================================================================
@@ -231,47 +233,9 @@ build RelWithDebInfo/project: CXX_EXECUTABLE_LINKER__project_RelWithDebInfo CMak
   OBJECT_DIR = CMakeFiles/project.dir/RelWithDebInfo
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/project.dir/RelWithDebInfo/
   TARGET_FILE = RelWithDebInfo/project
-  TARGET_PDB = project.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Order-only phony target for project.t
-
-build cmake_object_order_depends_target_project.t_RELWITHDEBINFO: phony || CMakeFiles/project.t.dir
-
-build CMakeFiles/project.t.dir/RelWithDebInfo/simulation.test.cpp.o: CXX_COMPILER__project.2et_RelWithDebInfo /home/rugs/desk/Fisica/simulation.test.cpp || cmake_object_order_depends_target_project.t_RELWITHDEBINFO
-  DEFINES = -DCMAKE_INTDIR=\"RelWithDebInfo\"
-  DEP_FILE = CMakeFiles/project.t.dir/RelWithDebInfo/simulation.test.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O2 -g -DNDEBUG -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/RelWithDebInfo
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/RelWithDebInfo
-
-build CMakeFiles/project.t.dir/RelWithDebInfo/simulation.cpp.o: CXX_COMPILER__project.2et_RelWithDebInfo /home/rugs/desk/Fisica/simulation.cpp || cmake_object_order_depends_target_project.t_RELWITHDEBINFO
-  DEFINES = -DCMAKE_INTDIR=\"RelWithDebInfo\"
-  DEP_FILE = CMakeFiles/project.t.dir/RelWithDebInfo/simulation.cpp.o.d
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O2 -g -DNDEBUG -std=c++20
-  OBJECT_DIR = CMakeFiles/project.t.dir/RelWithDebInfo
-  OBJECT_FILE_DIR = CMakeFiles/project.t.dir/RelWithDebInfo
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target project.t
-
-
-#############################################
-# Link the executable RelWithDebInfo/project.t
-
-build RelWithDebInfo/project.t: CXX_EXECUTABLE_LINKER__project.2et_RelWithDebInfo CMakeFiles/project.t.dir/RelWithDebInfo/simulation.test.cpp.o CMakeFiles/project.t.dir/RelWithDebInfo/simulation.cpp.o
-  FLAGS = -fno-omit-frame-pointer -Wall -Wextra -D_GLIBCXX_ASSERTIONS -O2 -g -DNDEBUG
-  OBJECT_DIR = CMakeFiles/project.t.dir/RelWithDebInfo
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = RelWithDebInfo/project.t
-  TARGET_PDB = project.t.dbg
+  TARGET_PDB = RelWithDebInfo/project.pdb
 
 
 #############################################
@@ -497,15 +461,13 @@ build CMakeFiles/ContinuousSubmit-RelWithDebInfo | ${cmake_ninja_workdir}CMakeFi
   COMMAND = cd /home/rugs/desk/Fisica/build && /usr/bin/ctest -C ${CONFIGURATION} -D ContinuousSubmit
   pool = console
 
-build project.t$:RelWithDebInfo: phony RelWithDebInfo/project.t
-
 build project$:RelWithDebInfo: phony RelWithDebInfo/project
 
 
 #############################################
 # Folder: /home/rugs/desk/Fisica/build
 
-build all$:RelWithDebInfo: phony RelWithDebInfo/project RelWithDebInfo/project.t
+build all$:RelWithDebInfo: phony RelWithDebInfo/project
 
 
 #############################################

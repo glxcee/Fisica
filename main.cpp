@@ -11,7 +11,6 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 
 */
 
-#include "doctest.h"
 
 #include <iostream>
 
