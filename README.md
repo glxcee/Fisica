@@ -20,3 +20,6 @@ classe **Simulation**: *[GUARDA formule.png]*
 (linka)
 - build/Debug/project
 (run)
+
+- sudo apt-get install libsfml-dev
+(installa SFML libreria grafica)
