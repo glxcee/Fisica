@@ -4,11 +4,10 @@
 int start_window() {
     //std::cout<<"STARTING WINDOW\n\n";
 
-    sf::RenderWindow window(sf::VideoMode({500, 500}), "Volterra Simulation");
+    sf::RenderWindow window(sf::VideoMode({800, 800}), "Volterra Simulation");
 
     
 
-    
     double i = 0;
     while (window.isOpen())
     {

@@ -9,19 +9,24 @@ struct Result {
   double H;
 };
 
-/*struct Point {
-  double x;
-  double y;
-};*/
 
 class Simulation {
-  // std::vector<Point> points_;
 
+  std::vector<Result> results{};
   double A, B, C, D;
   double n;
+  double dt = 0.001;
+
+  double H(double x, double y);
 
  public:
-  /*int pr::Simulation::*/ void evolve(int x, int y);  //non so se basta il void o se serve pr::Simulation:
+  Simulation(double x0, double y0, double A0, double B0, double C0, double D0);
+  void evolve();
+  Result get_latest_result();
+  Result get_result(int i);
+
+
+  /*void evolve(int x, int y);  //non so se basta il void o se serve pr::Simulation:
   double x{};
   double y{};
   for (int i = 1; i < n; ++i) {
@@ -35,7 +40,7 @@ class Simulation {
     }
   }
 
-  ;
+  ;*/
 }; 
 
 
