@@ -28,7 +28,9 @@ namespace pr {
     }
 
     Result Simulation::get_latest_result() {
-        return results[results.size()-1];
+        Result rel = results[results.size()-1];
+        // SBAGLIATO, VA RITORNATO UN RESULT CON X E Y ASSOLUTI ! (formula inversa in formule.png)
+        return rel;
     }
 
     void Simulation::evolve() {
