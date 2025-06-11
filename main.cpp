@@ -49,16 +49,16 @@ int main() {
           cout
               << "Perfect, now enter a value for X0, the initial prey number: ";
           cin >> x0;
-          if (x0 <= 0) {
-            cout << "x0 can't be a non-positive number" << endl;
+          if (x0 < 0) {
+            cout << "x0 can't be a negative number" << endl;
           } else {
             int y0;
             cout << "Great, now enter a value for y0, the initial predator "
                     "number: "
                  << endl;
             cin >> y0;
-            if (y0 <= 0) {
-              cout << "y0 can't be a non-positive number" << endl;
+            if (y0 < 0) {
+              cout << "y0 can't be a negative number" << endl;
             } else {
               pr::Simulation sim(A0, B0, C0, D0, x0, y0);
             }
