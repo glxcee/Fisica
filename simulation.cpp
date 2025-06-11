@@ -34,7 +34,9 @@ Result Simulation::get_latest_result() {
   Result rel = results[results.size() - 1];
   // SBAGLIATO, VA RITORNATO UN RESULT CON X E Y ASSOLUTI ! (formula inversa in
   // formule.png)
-  return rel;
+
+  return Result{results[i].xrel * (D / C), results[i].yrel * (A / B),
+                results[i].H};
 }
 
 void Simulation::evolve() {
@@ -45,6 +47,7 @@ void Simulation::evolve() {
   double xnew = x + A * (1 - y) * x * dt;
   double ynew = y + D * (x - 1) * y * dt;
 
-  results.push_back(Result{xnew * D / C, ynew * A / B, H(xnew, ynew)}); //ritorna Xnew e Ynew assoluti
+  results.push_back(Result{xnew, ynew, H(xnew, ynew)});
 }
+
 }  // namespace pr
