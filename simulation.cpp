@@ -22,25 +22,19 @@ Simulation::Simulation(double x0, double y0, double A0, double B0, double C0,
 }
 
 Result Simulation::get_result(int i) {
-  if (i >= results.size()) {  // optional? : misura di sicurezza per evitare un
-                              // "Index Out of Bounds"
-    return results[results.size() - 1];
-  }
+  Result rel = results[i];
+  double xabs = rel.X * (D / C);
+  double yabs = rel.Y * (A / B);
 
-  return results[i];
+  return Result{xabs, yabs, H(xabs, yabs)};
 }
 
 Result Simulation::get_latest_result() {
-  Result rel = results[results.size() - 1];
-  // SBAGLIATO, VA RITORNATO UN RESULT CON X E Y ASSOLUTI ! (formula inversa in
-  // formule.png)
-
-  return Result{results[i].xrel * (D / C), results[i].yrel * (A / B),
-                results[i].H};
+  return get_result(results.size() - 1);
 }
 
 void Simulation::evolve() {
-  Result latest = get_latest_result();
+  Result latest = results[results.size() - 1];
   double x = latest.X;
   double y = latest.Y;
 
