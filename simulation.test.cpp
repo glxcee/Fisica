@@ -17,13 +17,25 @@ TEST_CASE("Testing Simulation class") {
         CHECK(result.H == doctest::Approx(2.0)); // H(1,1) = -1*ln(1) + 1*1 + 1*1 -1*ln(1) = 2
     }
     
-    SUBCASE("Test H function calculation") {
+    SUBCASE("Test H function through get_result") {
         pr::Simulation sim(x0, y0, A, B, C, D);
         
-        // Test H at different points
-        CHECK(sim.H(1.0, 1.0) == doctest::Approx(2.0));
-        CHECK(sim.H(2.0, 3.0) == doctest::Approx(-D*log(2.0) + C*2.0 + B*3.0 - A*log(3.0)));
-        CHECK(sim.H(0.5, 0.5) == doctest::Approx(-D*log(0.5) + C*0.5 + B*0.5 - A*log(0.5)));
+        // Test H at different points by creating new simulations
+        {
+            pr::Simulation sim1(1.0, 1.0, A, B, C, D);
+            auto result = sim1.get_latest_result();
+            CHECK(result.H == doctest::Approx(2.0));
+        }
+        {
+            pr::Simulation sim2(2.0, 3.0, A, B, C, D);
+            auto result = sim2.get_latest_result();
+            CHECK(result.H == doctest::Approx(-D*log(2.0) + C*2.0 + B*3.0 - A*log(3.0)));
+        }
+        {
+            pr::Simulation sim3(0.5, 0.5, A, B, C, D);
+            auto result = sim3.get_latest_result();
+            CHECK(result.H == doctest::Approx(-D*log(0.5) + C*0.5 + B*0.5 - A*log(0.5)));
+        }
     }
     
     SUBCASE("Test single evolution step") {
@@ -98,4 +110,4 @@ TEST_CASE("Testing Simulation class") {
         CHECK(result2.X == doctest::Approx(1.0)); // Still at equilibrium
         CHECK(result2.Y == doctest::Approx(1.0)); // Still at equilibrium
     }
-  }
+}
