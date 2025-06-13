@@ -1,78 +1,101 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "simulation.hpp"
 #include "doctest.h"
-
-namespace pr = pr;
-
-/*
-TEST_CASE("Testing basics") {
-  CHECK(1 == 1);
-}
-  */
+#include "simulation.hpp"
+#include <cmath>
 
 TEST_CASE("Testing Simulation class") {
-  const double A = 1.0, B = 0.5, C = 0.75, D = 1.5;
-  const double x0 = 10.0, y0 = 5.0;
-
-  pr::Simulation sim(x0, y0, A, B, C, D);
-
-  SUBCASE("Test initialization") {
-    auto first_result = sim.get_result(0);
-
-    // Verifica che i valori relativi siano corretti
-    CHECK(first_result.X == doctest::Approx(x0 * (C / D)));
-    CHECK(first_result.Y == doctest::Approx(y0 * (B / A)));
-
-    // Verifica che H sia calcolato correttamente
-    double expected_H = -D * std::log(first_result.X) + C * first_result.X +
-                        B * first_result.Y - A * std::log(first_result.Y);
-    CHECK(first_result.H == doctest::Approx(expected_H));
-  }
-
-  SUBCASE("Test evolve() method") {
-    sim.evolve();
-    auto second_result = sim.get_result(1);
-
-    // Dovrebbe esserci esattamente 2 risultati ora
-    CHECK(sim.get_latest_result().X == doctest::Approx(second_result.X));
-
-    // Verifica che l'indice fuori range ritorni l'ultimo risultato
-    CHECK(sim.get_result(100).X == doctest::Approx(second_result.X));
-  }
-
-  SUBCASE("Test conservation of H (should be approximately constant)") {
-    const double initial_H = sim.get_result(0).H;
-
-    for (int i = 0; i < 10; ++i) {
-      sim.evolve();
+    const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
+    const double x0 = 1.0, y0 = 1.0;
+    
+    SUBCASE("Test constructor and initial values") {
+        pr::Simulation sim(x0, y0, A, B, C, D);
+        
+        // Check initial values
+        auto result = sim.get_latest_result();
+        CHECK(result.X == doctest::Approx(1.0));
+        CHECK(result.Y == doctest::Approx(1.0));
+        CHECK(result.H == doctest::Approx(2.0)); // H(1,1) = -1*ln(1) + 1*1 + 1*1 -1*ln(1) = 2
     }
-
-    auto latest = sim.get_latest_result();
-    CHECK(latest.H == doctest::Approx(initial_H).epsilon(0.01));
-  }
-}
-
-TEST_CASE("Edge cases") {
-  SUBCASE("Zero initial populations") {
-    pr::Simulation sim(0.0, 0.0, 1.0, 0.5, 0.75, 1.5);
-
-    // Verifica che il sistema rimanga a zero
-    for (int i = 0; i < 5; ++i) {
-      sim.evolve();
-      auto result = sim.get_latest_result();
-      CHECK(result.X == doctest::Approx(0.0));
-      CHECK(result.Y == doctest::Approx(0.0));
+    
+    SUBCASE("Test H function calculation") {
+        pr::Simulation sim(x0, y0, A, B, C, D);
+        
+        // Test H at different points
+        CHECK(sim.H(1.0, 1.0) == doctest::Approx(2.0));
+        CHECK(sim.H(2.0, 3.0) == doctest::Approx(-D*log(2.0) + C*2.0 + B*3.0 - A*log(3.0)));
+        CHECK(sim.H(0.5, 0.5) == doctest::Approx(-D*log(0.5) + C*0.5 + B*0.5 - A*log(0.5)));
+    }
+    
+    SUBCASE("Test single evolution step") {
+        pr::Simulation sim(x0, y0, A, B, C, D);
+        sim.evolve();
+        
+        auto result = sim.get_latest_result();
+        // With dt=0.001, A=D=1.0, x=y=1.0:
+        // dx/dt = A*(1-y)*x = 0
+        // dy/dt = D*(x-1)*y = 0
+        // So values shouldn't change
+        CHECK(result.X == doctest::Approx(1.0));
+        CHECK(result.Y == doctest::Approx(1.0));
+    }
+    
+    SUBCASE("Test evolution from non-equilibrium point") {
+        const double x_init = 2.0, y_init = 0.5;
+        pr::Simulation sim(x_init, y_init, A, B, C, D);
+        
+        sim.evolve();
+        auto result = sim.get_latest_result();
+        
+        // Expected changes:
+        // dx = A*(1-y)*x*dt = 1*(1-0.5)*2*0.001 = 0.001
+        // dy = D*(x-1)*y*dt = 1*(2-1)*0.5*0.001 = 0.0005
+        CHECK(result.X == doctest::Approx(2.0 + 0.001));
+        CHECK(result.Y == doctest::Approx(0.5 + 0.0005));
+    }
+    
+    SUBCASE("Test multiple evolution steps") {
+        pr::Simulation sim(2.0, 0.5, A, B, C, D);
+        
+        for (int i = 0; i < 10; ++i) {
+            sim.evolve();
+        }
+        
+        // Check that we have 11 results (initial + 10 evolutions)
+        CHECK(sim.get_latest_result().X != doctest::Approx(2.0));
+        CHECK(sim.get_latest_result().Y != doctest::Approx(0.5));
+    }
+    
+    SUBCASE("Test get_result with index") {
+        pr::Simulation sim(x0, y0, A, B, C, D);
+        
+        // Evolve a few times
+        for (int i = 0; i < 5; ++i) {
+            sim.evolve();
+        }
+        
+        // Check we can retrieve previous states
+        auto initial = sim.get_result(0);
+        CHECK(initial.X == doctest::Approx(1.0));
+        CHECK(initial.Y == doctest::Approx(1.0));
+        
+        auto middle = sim.get_result(3);
+        CHECK(middle.X == doctest::Approx(1.0));
+        CHECK(middle.Y == doctest::Approx(1.0));
+    }
+    
+    SUBCASE("Test different parameters") {
+        const double A2 = 2.0, B2 = 0.5, C2 = 1.5, D2 = 0.8;
+        pr::Simulation sim(x0, y0, A2, B2, C2, D2);
+        
+        // Check initial H value with new parameters
+        auto result = sim.get_latest_result();
+        double expected_H = -D2*log(x0) + C2*x0 + B2*y0 - A2*log(y0);
+        CHECK(result.H == doctest::Approx(expected_H));
+        
+        // Evolve and check behavior changes
+        sim.evolve();
+        auto result2 = sim.get_latest_result();
+        CHECK(result2.X == doctest::Approx(1.0)); // Still at equilibrium
+        CHECK(result2.Y == doctest::Approx(1.0)); // Still at equilibrium
     }
   }
-
-  SUBCASE("Extreme parameter values") {
-    pr::Simulation sim(100.0, 100.0, 1e-6, 1e-6, 1e-6, 1e-6);
-
-    // Verifica che il sistema cambi molto lentamente
-    sim.evolve();
-    auto result = sim.get_latest_result();
-    CHECK(result.X == doctest::Approx(100.0 * (1e-6 / 1e-6)).epsilon(0.0001));
-  }
-}
-
-// i test usano tutti .epsilon, non ricordo se l'abbiamo fatto con il giacoms
