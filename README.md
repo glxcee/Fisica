@@ -18,6 +18,8 @@ classe **Simulation**: *[GUARDA formule.png]*
 (crea la cartella build, *rm -rf build* la elimina)
 - cmake --build build --config Debug
 (linka)
+- cmake --build build --config Debug --target test
+(test)
 - build/Debug/project
 (run)
 

@@ -1,6 +1,6 @@
 #include "simulation.hpp"
 
-#include <cmath>
+
 
 namespace pr {
 

@@ -37,8 +37,8 @@ target_link_libraries(project PRIVATE sfml-graphics sfml-window sfml-system)
 if (BUILD_TESTING)
 
   # aggiungi l'eseguibile regression.t
-  #add_executable(project.t simulation.test.cpp simulation.cpp)
+  add_executable(project.t simulation.test.cpp simulation.cpp)
   # aggiungi l'eseguibile regression.t alla lista dei test
-  #add_test(NAME project.t COMMAND project.t)
+  add_test(NAME project.t COMMAND project.t)
 
 endif()

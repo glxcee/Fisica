@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <vector>
+#include <cmath>
 
 namespace pr {
 

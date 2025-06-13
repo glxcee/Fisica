@@ -4,6 +4,12 @@
 
 namespace pr = pr;
 
+/*
+TEST_CASE("Testing basics") {
+  CHECK(1 == 1);
+}
+  */
+
 TEST_CASE("Testing Simulation class") {
   const double A = 1.0, B = 0.5, C = 0.75, D = 1.5;
   const double x0 = 10.0, y0 = 5.0;
@@ -68,4 +74,5 @@ TEST_CASE("Edge cases") {
     CHECK(result.X == doctest::Approx(100.0 * (1e-6 / 1e-6)).epsilon(0.0001));
   }
 }
+
 // i test usano tutti .epsilon, non ricordo se l'abbiamo fatto con il giacoms
