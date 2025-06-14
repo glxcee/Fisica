@@ -1,7 +1,7 @@
 #include "graphic.hpp"
 
 namespace pr {
-void Engine::draw_axis() {
+void Engine::drawAxis() {
     std::vector<sf::Vertex> x_line;
     x_line.push_back(sf::Vertex(sf::Vector2f(50.f, 750.f), sf::Color::Red));
     x_line.push_back(sf::Vertex(sf::Vector2f(750.f, 750.f), sf::Color::Red));
@@ -29,8 +29,7 @@ void Engine::draw_axis() {
 }
 
 
-
-void Engine::draw_text(int x, int y) {
+void Engine::drawText(int x, int y) {
     std::ostringstream xCoords;
     xCoords << "x: " << x;
 
@@ -50,7 +49,8 @@ void Engine::draw_text(int x, int y) {
     window->draw(yText);
 }
 
-Engine::Engine() {
+
+Engine::Engine(double A, double B, double C, double D, double x0, double y0, int n) {
     
     sf::RenderWindow ogWindow(sf::VideoMode({800, 800}), "Volterra Simulation");
     window = &ogWindow;
@@ -60,12 +60,23 @@ Engine::Engine() {
         // gestione errore
     }
 
-    window_loop();
+    sim = Simulation(x0, y0, A, B, C, D);
+
+    windowLoop(n);
 }
 
-int Engine::window_loop() {
-    //std::cout<<"STARTING WINDOW\n\n";
+Point Engine::toVideoCoords(double x, double y) {
+    // Convert the mathematical coordinates to video coordinates
+    // Assuming the origin (0,0) is at the bottom left corner of the window
+    Point p;
+    p.x = 50 + (x * 700 / 10); // scale x to fit in the window
+    p.y = 750 - (y * 700 / 10); // scale y to fit in the window and invert y-axis
+    return p;
+}
 
+int Engine::windowLoop(int n) {
+
+    n=0;
 
     while (window->isOpen())
     {
@@ -84,20 +95,26 @@ int Engine::window_loop() {
 
         
         window->clear();
-        /*
+        
+        
+        
+
+        
+        drawAxis();
+        drawText(xmouse, ymouse);
+        
+        auto latest = sim.get_latest_result();
         sf::CircleShape shape(5.f);
         shape.setFillColor(sf::Color::White);
-        shape.setPosition(200.f + 100*std::cos(i), 200.f + 100*std::sin(i));
-        window.draw(shape);
-        */
+        Point videoCoords = toVideoCoords(latest.X, latest.Y);
+        shape.setPosition(videoCoords.x, videoCoords.y);
+        window->draw(shape);
 
-        
-        draw_axis();
-        draw_text(xmouse, ymouse);
-        
-
+         // evolve the simulation by one step
 
         window->display();
+
+        sim.evolve();
     }
 
     return 0;

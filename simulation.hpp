@@ -19,7 +19,7 @@ class Simulation {
   double H(double x, double y);
 
  public:
-  Simulation(double x0, double y0, double A0, double B0, double C0, double D0);
+  Simulation(double x0=1, double y0=1, double A0=1, double B0=1, double C0=1, double D0=1);
   void evolve();
   Result get_latest_result();
   Result get_result(int i);

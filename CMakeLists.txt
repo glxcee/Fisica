@@ -27,7 +27,7 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined ")
 find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 
-add_executable(project main.cpp graphic.cpp)
+add_executable(project main.cpp graphic.cpp simulation.cpp)
 
 target_link_libraries(project PRIVATE sfml-graphics sfml-window sfml-system)
 

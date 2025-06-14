@@ -18,7 +18,7 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 using namespace std;
 
 int main() {
-  pr::Engine engine;
+  pr::Engine engine(4,4,4,4,1,3,100);
   //engine.window_loop();
   
   double A0;

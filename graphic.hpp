@@ -2,20 +2,28 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include <cmath>
-#pragma once
+#include "simulation.hpp"
 
 namespace pr {
+
+struct Point {
+    double x;
+    double y;
+};
 
 class Engine {
     sf::RenderWindow *window;
     sf::Font font;
+    Simulation sim;
 
-    void draw_axis();
-    void draw_text(int x, int y);
+    void drawAxis();
+    void drawText(int x, int y);
+    int windowLoop(int n);
+    Point toVideoCoords(double x, double y);
     
     public:
-    Engine();
-    int window_loop();
+    Engine(double A, double B, double C, double D, double x0, double y0, int n);
+    
 };
 
 
