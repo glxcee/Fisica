@@ -29,24 +29,49 @@ void Engine::drawAxis() {
 }
 
 
-void Engine::drawText(int x, int y) {
+void Engine::drawText(double x, double y) {
+    Result latest = sim.get_latest_result();
+    double distance = sim.get_distance(latest.x, latest.y);
+
     std::ostringstream xCoords;
-    xCoords << "x: " << x;
+    xCoords << "x: " << latest.x;
 
     std::ostringstream yCoords;
-    yCoords << "y: " << y;
+    yCoords << "y: " << latest.y;
+
+    std::ostringstream hVal;
+    hVal << "H: " << latest.h;
+
+    std::ostringstream distanceVal;
+    distanceVal << "distance: " << distance;
+    sf::Text disText(distanceVal.str(), font, 24);
+    disText.setFillColor(sf::Color::Yellow);
+    disText.setPosition(200.f, 10.f);
+    window->draw(disText);
+
+    
+    if(!sim.gettingClose) {
+        sf::Text fartext("FAR", font, 24);
+        fartext.setPosition(400.f, 10.f);
+        window->draw(fartext);
+    }
 
     sf::Text xText(xCoords.str(), font, 24); // a font is required to make a text object
     sf::Text yText(yCoords.str(), font, 24);
+    sf::Text hText(hVal.str(), font, 24);
 
-    xText.setFillColor(sf::Color::Red);
-    xText.setPosition(720.f, 10.f);
+    xText.setFillColor(sf::Color::Yellow);
+    xText.setPosition(710.f, 10.f);
 
-    yText.setFillColor(sf::Color::Red);
-    yText.setPosition(720.f, 35.f);
+    yText.setFillColor(sf::Color::Yellow);
+    yText.setPosition(710.f, 35.f);
+
+    hText.setFillColor(sf::Color::Yellow);
+    hText.setPosition(10.f, 10.f);
 
     window->draw(xText);
     window->draw(yText);
+    window->draw(hText);
 }
 
 
@@ -69,12 +94,25 @@ Point Engine::toVideoCoords(double x, double y) {
     // Convert the mathematical coordinates to video coordinates
     // Assuming the origin (0,0) is at the bottom left corner of the window
     Point p;
-    p.x = 50 + (x * 700 / 10); // scale x to fit in the window
-    p.y = 750 - (y * 700 / 10); // scale y to fit in the window and invert y-axis
+    p.x = 50 + (x * 70); // scale x to fit in the window
+    p.y = 750 - (y * 70); // scale y to fit in the window and invert y-axis
+    return p;
+}
+
+Point Engine::toNormalCoords(double x, double y) {
+    // Convert the video coordinates back to mathematical coordinates
+    Point p;
+    p.x = (x - 50) / 70; // scale x back to normal
+    p.y = (750 - y) / 70; // scale y back to normal and invert y-axis
+
+    p.x = std::round(p.x * 100.f) / 100.f;
+    p.y = std::round(p.y * 100.f) / 100.f;
     return p;
 }
 
 int Engine::windowLoop(int n) {
+
+    Result start = sim.get_latest_result();
 
     n=0;
 
@@ -90,25 +128,28 @@ int Engine::windowLoop(int n) {
         }
 
         sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
-        int xmouse = mousePos.x;
-        int ymouse = mousePos.y;
+        Point mouseCoords = toNormalCoords(mousePos.x, mousePos.y);
 
         
         window->clear();
         
         
-        
-
-        
         drawAxis();
-        drawText(xmouse, ymouse);
+        drawText(mouseCoords.x, mouseCoords.y);
         
         auto latest = sim.get_latest_result();
         sf::CircleShape shape(5.f);
         shape.setFillColor(sf::Color::White);
-        Point videoCoords = toVideoCoords(latest.X, latest.Y);
+        Point videoCoords = toVideoCoords(latest.x, latest.y);
         shape.setPosition(videoCoords.x, videoCoords.y);
         window->draw(shape);
+
+        sf::CircleShape startingPoint(5.f);
+        startingPoint.setFillColor(sf::Color::Green);
+        Point startCoords = toVideoCoords(start.x, start.y);
+        startingPoint.setPosition(startCoords.x, startCoords.y);
+        window->draw(startingPoint);
+
 
          // evolve the simulation by one step
 

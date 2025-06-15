@@ -18,13 +18,13 @@ Simulation::Simulation(double x0, double y0, double A0, double B0, double C0,
   double xrel = x0 * (C / D);
   double yrel = y0 * (B / A);
 
-  results.push_back(Result{xrel, yrel, H(xrel, yrel)});
+  results.push_back(Point{xrel, yrel});
 }
 
 Result Simulation::get_result(int i) {
-  Result rel = results[i];
-  double xabs = rel.X * (D / C);
-  double yabs = rel.Y * (A / B);
+  Point rel = results[i];
+  double xabs = rel.x * (D / C);
+  double yabs = rel.y * (A / B);
 
   return Result{xabs, yabs, H(xabs, yabs)};
 }
@@ -34,14 +34,34 @@ Result Simulation::get_latest_result() {
 }
 
 void Simulation::evolve() {
-  Result latest = results[results.size() - 1];
-  double x = latest.X;
-  double y = latest.Y;
+  Point latest = results[results.size() - 1];
+  double x = latest.x;
+  double y = latest.y;
 
   double xnew = x + A * (1 - y) * x * dt;
   double ynew = y + D * (x - 1) * y * dt;
 
-  results.push_back(Result{xnew, ynew, H(xnew, ynew)});
+  double mag = get_distance(xnew, ynew);
+  
+  if( gettingClose && mag > get_distance(x, y) && mag < 0.5) {
+    gettingClose = false;
+    results.push_back(results[0]);
+    //results.push_back(Point{xnew, ynew});
+  }
+  else {
+    if( !gettingClose && mag < get_distance(x, y)) gettingClose = true;
+
+    results.push_back(Point{xnew, ynew});
+  }
+    
+
+  
+}
+
+double Simulation::get_distance(double x, double y) {
+  Point start = results[0];
+  return std::sqrt(std::pow(x - start.x, 2) + std::pow(y - start.y, 2));
 }
 
 }  // namespace pr
+
