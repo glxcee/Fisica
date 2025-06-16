@@ -5,7 +5,7 @@
 - A, B, C, D
 - Numero di passi totali (quante volte passa delta t *[che è nell'ordine di 0.001]*)
 
-**Calcolare a ogni step**: (xi, yi, Hi)
+**Calcolare a ogni step**: (xi, yi)
 
 classe **Simulation**: *[GUARDA formule.png]*
 - memoria di ogni valore (xi, yi, Hi) accessibili all'utente

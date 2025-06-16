@@ -36,9 +36,9 @@ target_link_libraries(project PRIVATE sfml-graphics sfml-window sfml-system)
 #   per disabilitare il testing, passare -DBUILD_TESTING=OFF a cmake durante la fase di configurazione
 if (BUILD_TESTING)
 
-  # aggiungi l'eseguibile regression.t
+  # aggiungi l'eseguibile project.t
   add_executable(project.t simulation.test.cpp simulation.cpp)
-  # aggiungi l'eseguibile regression.t alla lista dei test
+  # aggiungi l'eseguibile project.t alla lista dei test
   add_test(NAME project.t COMMAND project.t)
 
 endif()

@@ -17,21 +17,23 @@ struct Point {
 
 class Simulation {
   std::vector<Point> results{};
-  double A, B, C, D;
-  double dt = 0.001;
-
   
+  double dt = 0.001;
+  bool autoCorrect;
 
+  double get_distance(double x, double y);
+  bool gettingClose = false;
+  
   double H(double x, double y);
   
 
  public:
-  Simulation(double x0=1, double y0=1, double A0=1, double B0=1, double C0=1, double D0=1);
+  double A, B, C, D;
+  Simulation(double x0=1, double y0=1, double A0=1, double B0=1, double C0=1, double D0=1, bool correction=true);
   void evolve();
   Result get_latest_result();
   Result get_result(int i);
-  double get_distance(double x, double y);
-  bool gettingClose = false;
+  
 };
 
 }  // namespace pr

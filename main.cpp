@@ -18,8 +18,6 @@ e2 = (D/C, A/B) = punto di equilibrio/stazionario
 using namespace std;
 
 int main() {
-  pr::Engine engine(4,4,4,4,1,3,100);
-  //engine.window_loop();
   
   double A0;
   cout << "\nEnter a value for A, prey growth rate: ";
@@ -58,8 +56,25 @@ int main() {
             if (y0 < 0) {
               cout << "y0 can't be a negative number" << endl;
             } else {
-              // starto la parte grafica
-              cout<<"perfetto !!!"<<endl;
+              int N;
+              cout << "Perfect, now enter the number of iterations you want to perform: ";
+              cin >> N;
+              if (N <= 0) {
+                cout << "N can't be a non-positive number" << endl;
+              } else {
+                bool autoCorrect;
+                cout << "Do you want to enable auto-correction? (1 for yes, 0 for no): ";
+                cin >> autoCorrect;
+                if (autoCorrect != 0 && autoCorrect != 1) {
+                  cout << "Invalid input for auto-correction, defaulting to no." << endl;
+                  autoCorrect = false;
+                }
+                
+                // starto la parte grafica
+                pr::Engine engine(A0,B0,C0,D0,x0,y0,N,autoCorrect);
+                cout<<"Perfect !!!"<<endl;
+              
+              }
               
             }
           }

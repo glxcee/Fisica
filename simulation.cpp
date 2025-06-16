@@ -9,11 +9,12 @@ double Simulation::H(double x, double y) {
 }
 
 Simulation::Simulation(double x0, double y0, double A0, double B0, double C0,
-                       double D0) {
+                       double D0, bool correction) {
   A = A0;
   B = B0;
   C = C0;
   D = D0;
+  autoCorrect = correction;
 
   double xrel = x0 * (C / D);
   double yrel = y0 * (B / A);
@@ -39,23 +40,28 @@ void Simulation::evolve() {
   double y = latest.y;
 
   double xnew = x + A * (1 - y) * x * dt;
-  double ynew = y + D * (x - 1) * y * dt;
+  double ynew = y + D * (x - 1) * y * dt; 
 
-  double mag = get_distance(xnew, ynew);
+  // salva la simulazione nel caso solo una delle 2 cordinate vada per qualche motivo in negativo, se ci vanno entrambe si blocca
+  if(xnew < 0) xnew = x;
+  if(ynew < 0) ynew = y;
+
+
+  double newDist = get_distance(xnew, ynew);
+  double oldDist = get_distance(x, y);
   
-  if( gettingClose && mag > get_distance(x, y) && mag < 0.5) {
+  if( autoCorrect && gettingClose && newDist > oldDist && newDist < 0.5) { //se si stava avvicinando a (x0,y0), ma ha iniziato ad allontanarsi => riinizia il ciclo
     gettingClose = false;
     results.push_back(results[0]);
-    //results.push_back(Point{xnew, ynew});
   }
   else {
-    if( !gettingClose && mag < get_distance(x, y)) gettingClose = true;
+    if( autoCorrect && !gettingClose && newDist < oldDist) //si stava allontanado, ma ha iniziato a avvicinarsi => si sta avvcinando
+      gettingClose = true;
 
     results.push_back(Point{xnew, ynew});
   }
-    
 
-  
+
 }
 
 double Simulation::get_distance(double x, double y) {

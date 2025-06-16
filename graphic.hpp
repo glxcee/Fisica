@@ -3,6 +3,9 @@
 #include <sstream>
 #include <cmath>
 #include "simulation.hpp"
+#include <fstream>
+#include <chrono>
+#include <iomanip>
 
 namespace pr {
 
@@ -12,13 +15,13 @@ class Engine {
     Simulation sim;
 
     void drawAxis();
-    void drawText(double x, double y);
+    void drawText(int i, int n, Result latest);
+    void drawTail(int i);
     int windowLoop(int n);
     Point toVideoCoords(double x, double y);
-    Point toNormalCoords(double x, double y);
     
     public:
-    Engine(double A, double B, double C, double D, double x0, double y0, int n);
+    Engine(double A, double B, double C, double D, double x0, double y0, int n, bool autoCorrect);
     
 };
 
