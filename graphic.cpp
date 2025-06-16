@@ -100,6 +100,16 @@ void Engine::drawTail(int i) {
 }
 
 
+void Engine::drawFixedPoints() {
+
+    sf::CircleShape centerPoint(5.f);
+    centerPoint.setFillColor(sf::Color::Green);
+    Point centerCoords = toVideoCoords(sim.D/sim.C, sim.A/sim.B);
+    centerPoint.setPosition(centerCoords.x, centerCoords.y);
+    window->draw(centerPoint);
+}
+
+
 Engine::Engine(double A, double B, double C, double D, double x0, double y0, int n, bool autoCorrect) {
     
     sf::RenderWindow ogWindow(sf::VideoMode({800, 800}), "Volterra Simulation");
@@ -126,9 +136,6 @@ Point Engine::toVideoCoords(double x, double y) {
 
 
 int Engine::windowLoop(int n) {
-
-    Result start = sim.get_latest_result();
-
 
     auto now = std::chrono::system_clock::now();
     std::time_t t = std::chrono::system_clock::to_time_t(now);
@@ -166,11 +173,7 @@ int Engine::windowLoop(int n) {
         drawAxis();
         drawText(i,n,latest);
     
-        sf::CircleShape startingPoint(5.f);
-        startingPoint.setFillColor(sf::Color::Green);
-        Point startCoords = toVideoCoords(start.x, start.y);
-        startingPoint.setPosition(startCoords.x, startCoords.y);
-        window->draw(startingPoint);
+        drawFixedPoints();
 
         drawTail(i);
 

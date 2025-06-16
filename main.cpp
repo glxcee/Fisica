@@ -63,16 +63,16 @@ int main() {
                 cout << "N can't be a non-positive number" << endl;
               } else {
                 bool autoCorrect;
-                cout << "Do you want to enable auto-correction? (1 for yes, 0 for no): ";
+                cout << "Do you want to enable auto-correction for perfect cycles? (1 for yes, 0 for no): ";
                 cin >> autoCorrect;
                 if (autoCorrect != 0 && autoCorrect != 1) {
                   cout << "Invalid input for auto-correction, defaulting to no." << endl;
                   autoCorrect = false;
                 }
-                
+
                 // starto la parte grafica
                 pr::Engine engine(A0,B0,C0,D0,x0,y0,N,autoCorrect);
-                cout<<"Perfect !!!"<<endl;
+                cout<<"\nSimulation results succesfully saved in the \"logs\" folder!"<<endl;
               
               }
               

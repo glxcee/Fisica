@@ -17,6 +17,7 @@ class Engine {
     void drawAxis();
     void drawText(int i, int n, Result latest);
     void drawTail(int i);
+    void drawFixedPoints();
     int windowLoop(int n);
     Point toVideoCoords(double x, double y);
     
