@@ -1,16 +1,3 @@
-/*
-x == densità di prede
-y == densità predatori
-A == tasso di crescita prede
-B == tasso di mortalità prede --> dipende da numero prede e numero predatori
-C == tasso di crescita predatori
-D == tasso di mortalità predatori --> dipende da numero prede e numero predatori
-
-e1 = (0, 0) = punto di equilibrio/stazionario
-e2 = (D/C, A/B) = punto di equilibrio/stazionario
-
-*/
-
 #include <iostream>
 
 #include "graphic.hpp"
