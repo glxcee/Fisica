@@ -86,36 +86,6 @@ TEST_CASE("Testing Simulation with non-equilibrium initial conditions") {
   }
 }
 
-/*TEST_CASE("Testing result retrieval") {
-  const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
-  const double x0 = 1.0, y0 = 1.0;
-
-  pr::Simulation sim(x0, y0, A, B, C, D);
-
-  SUBCASE("get_latest_result returns correct initial values") {
-    auto result = sim.get_latest_result();
-    CHECK(result.x == doctest::Approx(1.0).epsilon(0.5));
-    CHECK(result.y == doctest::Approx(1.0).epsilon(0.5));
-  }
-
-  SUBCASE("get_result with index works correctly") {
-    // Evolve a few times
-    for (int i = 0; i < 5; ++i) {
-      sim.evolve();
-    }
-
-    // Check initial state
-    auto initial = sim.get_result(0);
-    CHECK(initial.x == doctest::Approx(1.0));
-    CHECK(initial.y == doctest::Approx(1.0));
-
-    // Check latest state
-    auto latest = sim.get_latest_result();
-    CHECK(latest.x == doctest::Approx(1.0).epsilon(0.5));
-    CHECK(latest.y == doctest::Approx(1.0).epsilon(0.5));
-  }
-}*/
-
 TEST_CASE("Testing with different parameters") {
   const double A = 2.0, B = 0.5, C = 1.5, D = 0.8;
   const double x0 = 1.0, y0 = 4.0;
@@ -211,13 +181,11 @@ TEST_CASE("Testing Simulation with non-equilibrium initial conditions") {
     CHECK(initial.y == doctest::Approx(7.0));
 
     // Check latest state
-    // RUGS MI SERVI TU 
-    /*auto latest = sim.get_latest_result();
+    auto latest = sim.get_latest_result();
     CHECK(latest.x == doctest::Approx(1.0).epsilon(0.5));
     // calcolare latestx dopo 5 iterazioni/introdurre double expected_x
     CHECK(latest.y == doctest::Approx(1.0).epsilon(0.5));
     // calcolare latesty dopo 5 iterazioni/introdurre double expected_y
-    */
   }
 }
 
