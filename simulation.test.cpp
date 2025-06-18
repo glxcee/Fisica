@@ -183,9 +183,9 @@ TEST_CASE("Testing Simulation with non-equilibrium initial conditions") {
     // Check popolazioni finali
     auto latest = sim.get_latest_result();
     CHECK(latest.x == doctest::Approx(11.0).epsilon(0.5));
-    // calcolare latestx dopo 5 iterazioni/introdurre double expected_x
+    // calcola latestx dopo 5 iterazioni/introdurre double expected_x
     CHECK(latest.y == doctest::Approx(8.0).epsilon(0.5));
-    // calcolare latesty dopo 5 iterazioni/introdurre double expected_y
+    // calcola latesty dopo 5 iterazioni/introdurre double expected_y
   }
 }
 
@@ -209,35 +209,31 @@ TEST_CASE("Testing with different parameters") {
   }
 }
 
-///////////////////////////////////////////////////////////
+TEST_CASE("Testing with only pred") {
+  const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
+  const double x0 = 0.0, y0 = 12.0;
 
-TEST_CASE("Testing with only prey")
-const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
-const double x0 = 0.0, y0 = 1.0;
+  pr::Simulation sim(x0, y0, A, B, C, D);
 
-pr::Simulation sim(x0, y0, A, B, C, D);
-
-{
   SUBCASE("Prey population to zero") {
     sim.evolve();
     auto result = sim.get_latest_result();
-    CHECK(result.x == doctest::Approx(0.0));  // Estinta rimane estinta
-    CHECK(result.y < 1.0);  // Predatore diminuisce senza preda
+    CHECK(result.x == doctest::Approx(0.0).epsilon(0.5));  // Estinta rimane estinta
+    CHECK(result.y == doctest::Approx(0.0).epsilon(0.5));  // Predatore diminuisce senza preda
   }
 }
 
-TEST_CASE("Testing with only predator")
-const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
-const double x0 = 1.0, y0 = 0.0;
+TEST_CASE("Testing with only prey") {
+  const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
+  const double x0 = 2.0, y0 = 0.0;
 
-pr::Simulation sim(x0, y0, A, B, C, D);
+  pr::Simulation sim(x0, y0, A, B, C, D);
 
-{
   SUBCASE("Predator population to zero") {
     sim.evolve();
+    int i = 0;
     auto result = sim.get_latest_result();
-    CHECK(result.x > latest.x);               // preda aumenta
+    CHECK(sim.get_result(i).x > sim.get_result(i -1).x);  // preda aumenta
     CHECK(result.y == doctest::Approx(0.0));  // Estinta rimane estinta
   }
 }
-  
