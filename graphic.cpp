@@ -123,7 +123,7 @@ Engine::Engine(double A, double B, double C, double D, double x0, double y0, int
 
     sim = Simulation(x0, y0, A, B, C, D, autoCorrect);
 
-    windowLoop(n);
+    windowLoop(n, visualizeText);
 }
 
 Point Engine::toVideoCoords(double x, double y) {
@@ -135,7 +135,7 @@ Point Engine::toVideoCoords(double x, double y) {
 }
 
 
-int Engine::windowLoop(int n) {
+int Engine::windowLoop(int n, bool visualizeText) {
 
     auto now = std::chrono::system_clock::now();
     std::time_t t = std::chrono::system_clock::to_time_t(now);
