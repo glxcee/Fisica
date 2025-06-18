@@ -115,9 +115,9 @@ Engine::Engine(double A, double B, double C, double D, double x0, double y0, int
     sf::RenderWindow ogWindow(sf::VideoMode({800, 800}), "Volterra Simulation");
     window = &ogWindow;
     
-    
+    bool visualizeText = true;
     if (!font.loadFromFile("arial.ttf")) {
-        //ogWindow.close();
+        visualizeText = false;
         // gestione errore
     }
 
@@ -171,7 +171,7 @@ int Engine::windowLoop(int n) {
         
 
         drawAxis();
-        drawText(i,n,latest);
+        if(visualizeText) drawText(i,n,latest);
     
         drawFixedPoints();
 
