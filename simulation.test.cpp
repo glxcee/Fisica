@@ -69,17 +69,14 @@ TEST_CASE("Testing Simulation with non-equilibrium initial conditions") {
   }
 
   SUBCASE("get_result with index works correctly") {
-    // Evolve qualche volta
     for (int i = 0; i < 5; ++i) {
       sim.evolve();
     }
 
-    // Check popolazioni iniziali
     auto initial = sim.get_result(0);
     CHECK(initial.x == doctest::Approx(2.0));
     CHECK(initial.y == doctest::Approx(0.5));
 
-    // Check popolazioni finali
     auto latest = sim.get_latest_result();
     CHECK(latest.x == doctest::Approx(2.0).epsilon(0.5));
     CHECK(latest.y == doctest::Approx(0.5).epsilon(0.5));
@@ -170,77 +167,72 @@ TEST_CASE("Testing Simulation with non-equilibrium initial conditions") {
   }
 
   SUBCASE("get_result with index works correctly") {
-    // Evolve un po'  di volte
     for (int i = 0; i < 5; ++i) {
       sim.evolve();
     }
 
-    // Check popolazioni iniziali
     auto initial = sim.get_result(0);
     CHECK(initial.x == doctest::Approx(12.0));
     CHECK(initial.y == doctest::Approx(7.0));
 
-    // Check popolazioni finali
     auto latest = sim.get_latest_result();
     CHECK(latest.x == doctest::Approx(11.0).epsilon(0.5));
-    // calcola latestx dopo 5 iterazioni/introdurre double expected_x
+
     CHECK(latest.y == doctest::Approx(8.0).epsilon(0.5));
-    // calcola latesty dopo 5 iterazioni/introdurre double expected_y
-  }
-}
-
-TEST_CASE("Testing with different parameters") {
-  const double A = 2.0, B = 0.5, C = 1.5, D = 0.8;
-  const double x0 = 1.0, y0 = 4.0;
-
-  pr::Simulation sim(x0, y0, A, B, C, D);
-
-  SUBCASE("Initial H value is calculated correctly") {
-    auto result = sim.get_latest_result();
-    double expected_H = -D * log(x0) + C * x0 + B * y0 - A * log(y0);
-    CHECK(result.h == doctest::Approx(expected_H).epsilon(0.1));
   }
 
-  SUBCASE("Evolution at equilibrium point doesn't change values") {
-    sim.evolve();
-    auto result = sim.get_latest_result();
-    CHECK(result.x == doctest::Approx(1.0).epsilon(0.5));
-    CHECK(result.y == doctest::Approx(4.0).epsilon(0.5));
-  }
-}
+  TEST_CASE("Testing with different parameters") {
+    const double A = 2.0, B = 0.5, C = 1.5, D = 0.8;
+    const double x0 = 1.0, y0 = 4.0;
 
-TEST_CASE("Testing with only pred") {
-  const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
-  const double x0 = 0.0, y0 = 4.0;
+    pr::Simulation sim(x0, y0, A, B, C, D);
 
-  pr::Simulation sim(x0, y0, A, B, C, D);
-
-  SUBCASE("Prey population to zero") {
-    for (int i = 0; i < 100000; ++i) {
-      sim.evolve();
-    }
-    auto result = sim.get_latest_result();
-    CHECK(result.x ==
-          doctest::Approx(0.0).epsilon(0.5));  // Estinta rimane estinta
-    CHECK(result.y == doctest::Approx(0.0).epsilon(
-                          0.5));  // Predatore diminuisce senza preda
-  }
-}
-
-TEST_CASE("Testing with only prey") {
-  const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
-  const double x0 = 2.0, y0 = 0.0;
-
-  pr::Simulation sim(x0, y0, A, B, C, D);
-
-  SUBCASE("Predator population to zero") {
-    for (int i = 0; i < 1000; ++i) {
-      sim.evolve();
+    SUBCASE("Initial H value is calculated correctly") {
+      auto result = sim.get_latest_result();
+      double expected_H = -D * log(x0) + C * x0 + B * y0 - A * log(y0);
+      CHECK(result.h == doctest::Approx(expected_H).epsilon(0.1));
     }
 
-    auto result = sim.get_latest_result();
-    CHECK(sim.get_result(1000).x >
-          sim.get_result(1000 - 1).x);        // preda aumenta
-    CHECK(result.y == doctest::Approx(0.0));  // Estinta rimane estinta
+    SUBCASE("Evolution at equilibrium point doesn't change values") {
+      sim.evolve();
+      auto result = sim.get_latest_result();
+      CHECK(result.x == doctest::Approx(1.0).epsilon(0.5));
+      CHECK(result.y == doctest::Approx(4.0).epsilon(0.5));
+    }
   }
-}
+
+  TEST_CASE("Testing with only pred") {
+    const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
+    const double x0 = 0.0, y0 = 4.0;
+
+    pr::Simulation sim(x0, y0, A, B, C, D);
+
+    SUBCASE("Prey population to zero") {
+      for (int i = 0; i < 100000; ++i) {
+        sim.evolve();
+      }
+      auto result = sim.get_latest_result();
+      CHECK(result.x ==
+            doctest::Approx(0.0).epsilon(0.5));  // Estinta rimane estinta
+      CHECK(result.y == doctest::Approx(0.0).epsilon(
+                            0.5));  // Predatore diminuisce senza preda
+    }
+  }
+
+  TEST_CASE("Testing with only prey") {
+    const double A = 1.0, B = 1.0, C = 1.0, D = 1.0;
+    const double x0 = 2.0, y0 = 0.0;
+
+    pr::Simulation sim(x0, y0, A, B, C, D);
+
+    SUBCASE("Predator population to zero") {
+      for (int i = 0; i < 1000; ++i) {
+        sim.evolve();
+      }
+
+      auto result = sim.get_latest_result();
+      CHECK(sim.get_result(1000).x >
+            sim.get_result(1000 - 1).x);        // preda aumenta
+      CHECK(result.y == doctest::Approx(0.0));  // Estinta rimane estinta
+    }
+  }

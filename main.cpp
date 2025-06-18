@@ -5,7 +5,6 @@
 using namespace std;
 
 int main() {
-  
   double A0;
   cout << "\nEnter a value for A, prey growth rate: ";
   cin >> A0;
@@ -53,16 +52,17 @@ int main() {
                 cout << "Do you want to enable auto-correction for perfect cycles? (1 for yes, 0 for no): ";
                 cin >> autoCorrect;
                 if (autoCorrect != 0 && autoCorrect != 1) {
-                  cout << "Invalid input for auto-correction, defaulting to no." << endl;
+                  cout << "Invalid input for auto-correction, defaulting to no."
+                       << endl;
                   autoCorrect = false;
                 }
 
                 // starto la parte grafica
-                pr::Engine engine(A0,B0,C0,D0,x0,y0,N,autoCorrect);
-                cout<<"\nSimulation results succesfully saved in the \"logs\" folder!"<<endl;
-              
+                pr::Engine engine(A0, B0, C0, D0, x0, y0, N, autoCorrect);
+                cout << "\nSimulation results succesfully saved in the "
+                        "\"logs\" folder!"
+                     << endl;
               }
-              
             }
           }
         }
@@ -71,4 +71,3 @@ int main() {
   }
   return 0;
 }
-

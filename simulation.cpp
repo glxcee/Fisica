@@ -55,8 +55,7 @@ void Simulation::evolve() {
     double xnew = x + A * (1 - y) * x * dt;
     double ynew = y + D * (x - 1) * y * dt;
 
-    // salva la simulazione nel caso solo una delle 2 cordinate vada per qualche
-    // motivo in negativo, se ci vanno entrambe si blocca
+    // salva la simulazione nel caso solo una delle 2 cordinate vada per qualche motivo in negativo, se ci vanno entrambe si blocca
     if (xnew < 0) xnew = x;
     if (ynew < 0) ynew = y;
 
@@ -64,23 +63,21 @@ void Simulation::evolve() {
     double oldDist = get_distance(x, y);
 
     if (autoCorrect && gettingClose && newDist > oldDist &&
-        newDist < 0.5) {  // se si stava avvicinando a (x0,y0), ma ha iniziato
-                          // ad allontanarsi => riinizia il ciclo
+        newDist < 0.5) {  // se si stava avvicinando a (x0,y0), ma ha iniziato ad allontanarsi => riinizia il ciclo
       gettingClose = false;
       results.push_back(results[0]);
     } else {
       if (autoCorrect && !gettingClose &&
-          newDist < oldDist)  // si stava allontanado, ma ha iniziato a
-                              // avvicinarsi => si sta avvcinando
+          newDist < oldDist)  // si stava allontanado, ma ha iniziato a avvicinarsi => si sta avvcinando
         gettingClose = true;
 
       results.push_back(Point{xnew, ynew});
     }
   }
 }
-  double Simulation::get_distance(double x, double y) {
-    Point start = results[0];
-    return std::sqrt(std::pow(x - start.x, 2) + std::pow(y - start.y, 2));
-  }
+double Simulation::get_distance(double x, double y) {
+  Point start = results[0];
+  return std::sqrt(std::pow(x - start.x, 2) + std::pow(y - start.y, 2));
+}
 
 }  // namespace pr
